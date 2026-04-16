@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ClienteManager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 12 12" fill="currentColor"><path d="M2 2h3v3H2zM7 2h3v3H7zM2 7h3v3H2zM7 7h3v3H7z"/></svg>
+      </div>
+      ClienteManager
+    </div>
+    <button class="btn-primary" onclick="abrirForm()">+ Novo cliente</button>
+  </nav>
+
+  <main class="container">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Clientes</h1>
+        <p class="page-sub">Gerencie sua base de clientes cadastrados</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total de clientes</span>
+        <span class="stat-value" id="stat-total">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Com telefone</span>
+        <span class="stat-value" id="stat-tel">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Este mês</span>
+        <span class="stat-value" id="stat-mes">—</span>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tab-group">
+        <button class="tab active" data-filter="todos">Todos</button>
+        <button class="tab" data-filter="telefone">Com telefone</button>
+        <button class="tab" data-filter="recentes">Recentes</button>
+      </div>
+      <input class="search-input" id="busca" type="text" placeholder="Buscar por nome ou e-mail..."/>
+    </div>
+
+    <div class="table-card">
+      <div id="loading" class="state-msg">Carregando...</div>
+      <div id="empty" class="state-msg" style="display:none">Nenhum cliente encontrado.</div>
+      <table id="tabela" style="display:none">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Telefone</th>
+            <th>Cadastrado em</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <div class="overlay" id="overlay" onclick="fecharForm()"></div>
+
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <span class="drawer-title" id="drawer-title">Novo cliente</span>
+      <button class="drawer-close" onclick="fecharForm()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="field-group">
+        <label class="field-label" for="f-nome">Nome completo <span class="req">*</span></label>
+        <input class="field-input" id="f-nome" type="text" placeholder="Ex: Maria Silva" maxlength="100"/>
+        <span class="field-error" id="err-nome">Nome é obrigatório</span>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-email">E-mail <span class="req">*</span></label>
+        <input class="field-input" id="f-email" type="email" placeholder="Ex: maria@email.com" maxlength="100"/>
+        <span class="field-error" id="err-email">Informe um e-mail válido</span>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-tel">Telefone <span class="optional">opcional</span></label>
+        <input class="field-input" id="f-tel" type="tel" placeholder="(00) 00000-0000" maxlength="16"/>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <button class="btn-ghost" onclick="fecharForm()">Cancelar</button>
+      <button class="btn-primary" id="btn-salvar" onclick="salvar()">
+        <span id="btn-label">Cadastrar</span>
+        <span class="spinner" id="spinner"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <p class="modal-title">Remover cliente?</p>
+      <p class="modal-sub" id="modal-sub">Esta ação não pode ser desfeita.</p>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="fecharModal()">Cancelar</button>
+        <button class="btn-danger" id="btn-confirmar">Remover</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
