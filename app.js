@@ -1,4 +1,4 @@
-const API = 'http://localhost:8080/clientes'; // ✅ CORRIGIDO
+const API = 'https://cliente-manager-api-4.onrender.com/clientes'; // ✅ CORRIGIDO
 
 let todosClientes = [];
 let filtroAtivo = 'todos';
